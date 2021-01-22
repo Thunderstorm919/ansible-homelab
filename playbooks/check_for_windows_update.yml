@@ -1,0 +1,6 @@
+- hosts: windows
+  tasks:
+    # Checking for Update
+    - name: Check for Updates
+      win_updates: state=searched
+      register: update_count

@@ -1,0 +1,23 @@
+- hosts: windows 
+  tasks:
+    # Unconditionally reboot the machine with all defaults
+    # Will reboot machines, that is why I created check for windows update playbooks to run first to see if there are updates available
+    - win_reboot:
+
+    # Checking for Update
+    - name: Check for Updates
+      win_updates: state=searched
+      register: update_count
+
+    # Apply pending updates
+    - name: Running Windows Update
+      win_updates:
+        category_names: ['SecurityUpdates','CriticalUpdates','UpdateRollups', 'Updates', 'DefinitionUpdates']
+      register: result
+
+    # output results
+    - debug: var=result  
+
+    # reboot only if required
+    - win_reboot:
+      when: result.reboot_required

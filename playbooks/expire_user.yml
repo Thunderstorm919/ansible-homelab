@@ -1,0 +1,14 @@
+- hosts: centos
+  become: yes
+  vars:
+     time: "{{ lookup('pipe', 'date -d \"1 day ago\" +\"%Y%m%d\"') }}"
+     user: "test"
+  tasks:
+    - user:
+        name: "{{ user }}"
+        state:  present
+    # Removes user from /etc/passwd but keeps /home directory
+    #- name: Expire an existing user
+    #  user:
+    #    name: "{{ user }}"
+    #    expires: "{{ time }}"

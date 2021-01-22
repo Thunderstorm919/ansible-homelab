@@ -1,0 +1,33 @@
+all:
+  children:
+    linux:
+      children:
+        ansible:
+          hosts:
+            192.168.0.XX:
+        ubuntu:
+          hosts:
+            192.168.0.XX:
+        centos:
+          hosts:
+            192.168.0.XX:
+    windows:
+      children:
+        desktop:
+          hosts:
+            192.168.0.XX:
+          vars:
+            ansible_connection: winrm
+            ansible_user: user_with_admin_on_windows
+            ansible_password: password_for_user_above
+            ansible_port: 5986
+            ansible_winrm_server_cert_validation: ignore
+        enterprise:
+          hosts:
+            192.168.0.xx:
+          vars:
+            ansible_connection: winrm
+            ansible_user: user_with_admin_on_windows
+            ansible_password: password_for_user_above
+            ansible_port: 5986
+            ansible_winrm_server_cert_validation: ignore
